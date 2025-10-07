@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logo from "@/assets/bridge-logo.png";
 
 export default function Navigation() {
@@ -21,7 +21,7 @@ export default function Navigation() {
         }
         return false;
       });
-      if (current) setActiveSection(current);
+      setActiveSection(current ?? "");
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -64,10 +64,10 @@ export default function Navigation() {
     <>
       <nav
         aria-label="Primary"
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`sticky top-0 z-40 w-full transition-all duration-300 ${
           isScrolled
             ? "bg-background/95 backdrop-blur-md border-b border-primary/20 shadow-lg shadow-black/5"
-            : "bg-transparent"
+            : "bg-background/80 supports-[backdrop-filter]:bg-background/60 border-b border-transparent backdrop-blur"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 py-3.5">
@@ -106,17 +106,6 @@ export default function Navigation() {
             <div className="hidden lg:flex items-center gap-3">
               <Button
                 size="sm"
-                variant="ghost"
-                className="gap-2 text-foreground/80 hover:text-primary hover:bg-primary/10 h-9 px-3 font-medium"
-                asChild
-              >
-                <a href="tel:14035550123" aria-label="Call The Bridge Barbershop">
-                  <Phone className="h-4 w-4" />
-                  (403) 555-0123
-                </a>
-              </Button>
-              <Button
-                size="sm"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20 relative overflow-hidden group h-9 px-5"
                 onClick={() => scrollToSection("#booking")}
               >
@@ -141,7 +130,7 @@ export default function Navigation() {
       {isMobileMenuOpen && (
         <div
           id="mobile-navigation"
-          className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg lg:hidden"
+          className="fixed inset-0 z-50 bg-background/98 backdrop-blur-lg lg:hidden"
           role="dialog"
           aria-modal="true"
         >
@@ -156,17 +145,6 @@ export default function Navigation() {
                 {link.name}
               </button>
             ))}
-            <Button
-              size="sm"
-              variant="ghost"
-              className="gap-2 text-primary hover:bg-primary/10 mt-2"
-              asChild
-            >
-              <a href="tel:14035550123" aria-label="Call The Bridge Barbershop">
-                <Phone className="h-4 w-4" />
-                (403) 555-0123
-              </a>
-            </Button>
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
