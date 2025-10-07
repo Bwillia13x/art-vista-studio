@@ -85,7 +85,12 @@ export default function Gallery() {
             className={`flex-shrink-0 w-80 h-[28rem] rounded-sm relative overflow-hidden border border-primary/10 hover:border-primary/30 transition-all duration-500 group ${isVisible ? "opacity-100" : "opacity-0"}`}
             style={{ transitionDelay: `${(index % galleryImages.length) * 100}ms` }}
           >
-            <img src={image} alt="Gallery" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+            <img 
+              src={image} 
+              alt={`The Bridge barbershop luxury interior and premium grooming services - image ${(index % galleryImages.length) + 1}`}
+              loading="lazy"
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </div>
         ))}

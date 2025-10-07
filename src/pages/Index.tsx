@@ -11,15 +11,15 @@ export default function Index() {
   return (
     <>
       <Navigation />
-      <main className="min-h-screen bg-background">
+      <main className="min-h-screen bg-background" role="main">
         <Hero />
         <About />
         <Services />
         <Gallery />
         <Testimonials />
         <Booking />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }
