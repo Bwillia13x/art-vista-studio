@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import barbershopImage from "@/assets/barbershop-interior.jpg";
 
 export default function About() {
   const [isVisible, setIsVisible] = useState(false);
@@ -49,7 +50,12 @@ export default function About() {
           <div
             className={`relative transition-all duration-1000 delay-300 ${isVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"}`}
           >
-            <div className="aspect-[4/5] rounded-sm relative overflow-hidden border border-primary/10 shadow-2xl group bg-gradient-to-br from-primary/5 to-primary/10">
+            <div className="aspect-[4/5] rounded-sm relative overflow-hidden border border-primary/10 shadow-2xl group">
+              <img 
+                src={barbershopImage} 
+                alt="Luxury barbershop interior showcasing traditional craftsmanship" 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
             </div>
             <div
