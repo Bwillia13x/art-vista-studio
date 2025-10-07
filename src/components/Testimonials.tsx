@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Star, Quote } from "lucide-react";
 
 const testimonials = [
@@ -29,6 +30,16 @@ const testimonials = [
 export default function Testimonials() {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const scrollToBooking = () => {
+    const element = document.getElementById("booking");
+    if (element) {
+      const offset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
+    }
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -88,6 +99,19 @@ export default function Testimonials() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-16 flex flex-col items-center gap-4 text-center">
+          <p className="text-muted-foreground max-w-xl">
+            Join Calgary professionals who trust The Bridge for meticulous grooming. Reserve your chair in moments.
+          </p>
+          <Button
+            size="lg"
+            className="bg-primary hover:bg-primary/90 text-primary-foreground px-8"
+            onClick={scrollToBooking}
+          >
+            Book your experience
+          </Button>
         </div>
       </div>
     </section>
