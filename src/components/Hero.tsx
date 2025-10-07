@@ -2,16 +2,13 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import logo from "@/assets/bridge-logo.png";
-import { ParticleBackground } from "@/components/background/ParticleBackground";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
-    setIsClient(true);
     const handleScroll = () => setScrollY(window.scrollY);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -32,7 +29,6 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden pt-20">
-      {isClient ? <ParticleBackground /> : null}
 
       <div
         className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-background"
