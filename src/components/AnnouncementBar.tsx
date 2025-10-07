@@ -5,23 +5,23 @@ const LOCATION_URL = "https://maps.google.com/?q=The+Bridge+Barbershop+Calgary";
 
 export default function AnnouncementBar() {
   return (
-    <div className="bg-gradient-to-r from-primary/10 via-primary/20 to-primary/10 text-primary border-b border-primary/30">
-      <div className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-3 text-sm md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs uppercase tracking-[0.28em] text-primary/80 md:text-[0.7rem]">
-          <span className="flex items-center gap-2">
-            <Gift className="h-3.5 w-3.5" />
-            Complimentary beverage lounge
+    <div className="bg-gradient-to-r from-primary/10 via-primary/15 to-primary/10 text-primary border-b border-primary/20">
+      <div className="mx-auto flex max-w-7xl flex-col gap-2 px-6 py-2.5 text-sm md:flex-row md:items-center md:justify-between">
+        <div className="flex flex-wrap items-center justify-center md:justify-start gap-x-6 gap-y-2 text-[0.7rem] uppercase tracking-[0.25em] text-primary/90 font-medium">
+          <span className="flex items-center gap-2 whitespace-nowrap">
+            <Gift className="h-3.5 w-3.5 flex-shrink-0" />
+            Complimentary Beverage Lounge
           </span>
-          <span className="hidden h-3 w-px bg-primary/30 md:block" />
-          <span className="flex items-center gap-2">
+          <span className="hidden h-3.5 w-px bg-primary/30 md:block" />
+          <span className="flex items-center gap-2 whitespace-nowrap">
             <StarDivider />
-            Walk-ins welcome when available
+            Walk-ins Welcome When Available
           </span>
         </div>
-        <div className="flex flex-wrap items-center gap-2">
-          <Button asChild size="sm" variant="ghost" className="gap-2 text-primary hover:bg-primary/10">
+        <div className="flex flex-wrap items-center justify-center md:justify-end gap-2">
+          <Button asChild size="sm" variant="ghost" className="gap-2 text-primary hover:bg-primary/10 h-8 px-3 text-xs font-medium">
             <a href="tel:14035550123" aria-label="Call The Bridge Barbershop">
-              <Phone className="h-4 w-4" />
+              <Phone className="h-3.5 w-3.5" />
               (403) 555-0123
             </a>
           </Button>
@@ -29,11 +29,11 @@ export default function AnnouncementBar() {
             asChild
             size="sm"
             variant="ghost"
-            className="gap-2 text-primary hover:bg-primary/10"
+            className="gap-2 text-primary hover:bg-primary/10 h-8 px-3 text-xs font-medium"
           >
             <a href={LOCATION_URL} target="_blank" rel="noreferrer" aria-label="Open directions to The Bridge Barbershop">
-              <MapPin className="h-4 w-4" />
-              Get directions
+              <MapPin className="h-3.5 w-3.5" />
+              Get Directions
             </a>
           </Button>
         </div>

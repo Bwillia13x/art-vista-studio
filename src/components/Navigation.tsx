@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import logo from "@/assets/bridge-logo.png";
 
 export default function Navigation() {
@@ -70,8 +70,8 @@ export default function Navigation() {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 py-3.5">
+          <div className="flex items-center justify-between gap-4">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
               className="flex items-center transition-all duration-300 hover:scale-105 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background group"
@@ -80,17 +80,17 @@ export default function Navigation() {
               <img
                 src={logo}
                 alt="The Bridge Barbershop"
-                className="h-12 w-auto object-contain transition-transform duration-500 group-hover:brightness-110"
+                className="h-11 w-auto object-contain transition-transform duration-500 group-hover:brightness-110"
               />
             </button>
 
-            <div className="hidden md:flex items-center gap-8">
+            <div className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => (
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
-                  className={`text-sm transition-all duration-300 tracking-wide relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
-                    activeSection === link.href.slice(1) ? "text-primary" : "text-muted-foreground hover:text-primary"
+                  className={`text-sm font-medium transition-all duration-300 tracking-wide relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background px-1 ${
+                    activeSection === link.href.slice(1) ? "text-primary" : "text-foreground/80 hover:text-primary"
                   }`}
                 >
                   {link.name}
@@ -101,9 +101,23 @@ export default function Navigation() {
                   />
                 </button>
               ))}
+            </div>
+
+            <div className="hidden lg:flex items-center gap-3">
               <Button
                 size="sm"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20 relative overflow-hidden group"
+                variant="ghost"
+                className="gap-2 text-foreground/80 hover:text-primary hover:bg-primary/10 h-9 px-3 font-medium"
+                asChild
+              >
+                <a href="tel:14035550123" aria-label="Call The Bridge Barbershop">
+                  <Phone className="h-4 w-4" />
+                  (403) 555-0123
+                </a>
+              </Button>
+              <Button
+                size="sm"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20 relative overflow-hidden group h-9 px-5"
                 onClick={() => scrollToSection("#booking")}
               >
                 <span className="relative z-10">Book Now</span>
@@ -112,7 +126,7 @@ export default function Navigation() {
             </div>
 
             <button
-              className="md:hidden text-primary transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              className="lg:hidden text-primary transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               aria-expanded={isMobileMenuOpen}
@@ -127,11 +141,11 @@ export default function Navigation() {
       {isMobileMenuOpen && (
         <div
           id="mobile-navigation"
-          className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg md:hidden"
+          className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg lg:hidden"
           role="dialog"
           aria-modal="true"
         >
-          <div className="flex flex-col items-center justify-center h-full gap-8 px-6">
+          <div className="flex flex-col items-center justify-center h-full gap-6 px-6">
             {navLinks.map((link, index) => (
               <button
                 key={link.name}
@@ -143,8 +157,19 @@ export default function Navigation() {
               </button>
             ))}
             <Button
+              size="sm"
+              variant="ghost"
+              className="gap-2 text-primary hover:bg-primary/10 mt-2"
+              asChild
+            >
+              <a href="tel:14035550123" aria-label="Call The Bridge Barbershop">
+                <Phone className="h-4 w-4" />
+                (403) 555-0123
+              </a>
+            </Button>
+            <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold mt-4"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold"
               onClick={() => scrollToSection("#booking")}
             >
               Reserve Your Experience
