@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import logo from "@/assets/bridge-logo.png";
-import { ParticleBackground } from "@/components/background/ParticleBackground";
+// import { ParticleBackground } from "@/components/background/ParticleBackground";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
@@ -30,13 +30,20 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden pt-20">
-      <ParticleBackground />
+      {/* <ParticleBackground /> */}
       
       <div
-        className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/80 to-background"
+        className="absolute inset-0 bg-gradient-to-b from-black via-black/98 to-background"
         style={{ transform: `translate3d(0, ${scrollY * 0.5}px, 0)` }}
       >
         <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_50%_50%,_hsl(var(--primary))_0%,transparent_70%)]" />
+        <div
+          className="absolute inset-0 opacity-[0.02]"
+          style={{
+            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--primary)) 2px, hsl(var(--primary)) 3px)`,
+            transform: `translate3d(0, ${scrollY * 0.3}px, 0)`,
+          }}
+        />
       </div>
 
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
