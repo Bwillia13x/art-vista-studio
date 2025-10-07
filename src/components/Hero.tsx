@@ -28,7 +28,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden">
+    <section className="relative h-screen flex items-center justify-center overflow-hidden pt-20">
       <div
         className="absolute inset-0 bg-gradient-to-b from-black via-black/98 to-background"
         style={{ transform: `translate3d(0, ${scrollY * 0.5}px, 0)` }}
