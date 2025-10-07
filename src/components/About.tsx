@@ -45,6 +45,18 @@ export default function About() {
               Every detail, from our carefully curated products to our refined atmosphere, has been thoughtfully
               designed to provide you with a moment of luxury in your day.
             </p>
+            <div className="mt-10 grid gap-6 sm:grid-cols-3">
+              {[
+                { value: "25+", label: "Years combined mastery" },
+                { value: "5-Star", label: "Guest rated experience" },
+                { value: "1:1", label: "Personalized consultations" },
+              ].map((stat) => (
+                <div key={stat.label} className="rounded-lg border border-primary/20 bg-primary/5 px-5 py-6">
+                  <p className="font-serif text-3xl text-primary">{stat.value}</p>
+                  <p className="text-xs uppercase tracking-[0.25em] text-muted-foreground mt-2">{stat.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div

@@ -63,6 +63,7 @@ export default function Navigation() {
   return (
     <>
       <nav
+        aria-label="Primary"
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
             ? "bg-background/95 backdrop-blur-md border-b border-primary/20 shadow-lg shadow-black/5"
@@ -73,11 +74,12 @@ export default function Navigation() {
           <div className="flex items-center justify-between">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center transition-all duration-300 hover:scale-105 hover:opacity-80 group"
+              className="flex items-center transition-all duration-300 hover:scale-105 hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background group"
+              aria-label="Back to top"
             >
-              <img 
-                src={logo} 
-                alt="The Bridge Barbershop" 
+              <img
+                src={logo}
+                alt="The Bridge Barbershop"
                 className="h-12 w-auto object-contain transition-transform duration-500 group-hover:brightness-110"
               />
             </button>
@@ -87,7 +89,7 @@ export default function Navigation() {
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
-                  className={`text-sm transition-all duration-300 tracking-wide relative group ${
+                  className={`text-sm transition-all duration-300 tracking-wide relative group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                     activeSection === link.href.slice(1) ? "text-primary" : "text-muted-foreground hover:text-primary"
                   }`}
                 >
@@ -110,8 +112,11 @@ export default function Navigation() {
             </div>
 
             <button
-              className="md:hidden text-primary transition-transform hover:scale-110"
+              className="md:hidden text-primary transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -120,13 +125,18 @@ export default function Navigation() {
       </nav>
 
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg md:hidden">
+        <div
+          id="mobile-navigation"
+          className="fixed inset-0 z-40 bg-background/98 backdrop-blur-lg md:hidden"
+          role="dialog"
+          aria-modal="true"
+        >
           <div className="flex flex-col items-center justify-center h-full gap-8 px-6">
             {navLinks.map((link, index) => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className="text-2xl font-serif text-primary hover:text-primary/80 transition-all hover:scale-110"
+                className="text-2xl font-serif text-primary hover:text-primary/80 transition-all hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 {link.name}
