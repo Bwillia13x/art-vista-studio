@@ -13,8 +13,10 @@ export default function Index() {
   return (
     <>
       <SkipNav />
-      <AnnouncementBar />
-      <Navigation />
+      <header className="relative z-50">
+        <AnnouncementBar />
+        <Navigation />
+      </header>
       <main className="min-h-screen bg-background" id="main-content" role="main">
         <Hero />
         <About />
