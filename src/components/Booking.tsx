@@ -77,8 +77,8 @@ export default function Booking() {
             <Card className="bg-accent/30 border-primary/20 hover:border-primary/30 transition-all">
               <CardContent className="p-8">
                 {isSubmitted ? (
-                  <div className="flex flex-col items-center justify-center py-12">
-                    <CheckCircle2 className="w-16 h-16 text-primary mb-4" />
+                  <div className="flex flex-col items-center justify-center py-12 animate-fade-in">
+                    <CheckCircle2 className="w-16 h-16 text-primary mb-4 animate-scale-in" />
                     <h3 className="text-2xl font-serif text-primary mb-2">Request Received!</h3>
                     <p className="text-muted-foreground text-center">
                       We'll contact you shortly to confirm your appointment.
@@ -87,24 +87,24 @@ export default function Booking() {
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="name">Full Name *</Label>
+                      <div className="space-y-2 group">
+                        <Label htmlFor="name" className="transition-colors duration-200 group-focus-within:text-primary">Full Name *</Label>
                         <Input
                           id="name"
                           value={formData.name}
                           onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          className="bg-background border-primary/20 focus:border-primary transition-colors"
+                          className="bg-background border-primary/20 focus:border-primary transition-all duration-300 focus:shadow-md focus:shadow-primary/10"
                           required
                         />
                       </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="email">Email *</Label>
+                      <div className="space-y-2 group">
+                        <Label htmlFor="email" className="transition-colors duration-200 group-focus-within:text-primary">Email *</Label>
                         <Input
                           id="email"
                           type="email"
                           value={formData.email}
                           onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          className="bg-background border-primary/20 focus:border-primary transition-colors"
+                          className="bg-background border-primary/20 focus:border-primary transition-all duration-300 focus:shadow-md focus:shadow-primary/10"
                           required
                         />
                       </div>
@@ -197,9 +197,10 @@ export default function Booking() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-all hover:scale-[1.02] shadow-md hover:shadow-lg hover:shadow-primary/20"
+                      className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-all duration-500 hover:scale-[1.02] shadow-md hover:shadow-lg hover:shadow-primary/20 group relative overflow-hidden"
                     >
-                      Confirm Booking Request
+                      <span className="relative z-10">Confirm Booking Request</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
                     </Button>
                     <p className="text-xs text-muted-foreground text-center">
                       We'll contact you within 24 hours to confirm your appointment

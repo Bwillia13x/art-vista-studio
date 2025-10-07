@@ -52,10 +52,10 @@ export default function Footer() {
               <p>Sunday: 10am - 5pm</p>
             </div>
             <div className="flex gap-4 mt-6">
-              <a href="#" className="text-primary/60 hover:text-primary transition-colors">
+              <a href="#" className="text-primary/60 hover:text-primary transition-all duration-300 hover:scale-110 hover:-translate-y-1">
                 <Instagram className="w-5 h-5" />
               </a>
-              <a href="#" className="text-primary/60 hover:text-primary transition-colors">
+              <a href="#" className="text-primary/60 hover:text-primary transition-all duration-300 hover:scale-110 hover:-translate-y-1">
                 <Facebook className="w-5 h-5" />
               </a>
             </div>

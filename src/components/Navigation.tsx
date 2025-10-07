@@ -73,12 +73,12 @@ export default function Navigation() {
           <div className="flex items-center justify-between">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center transition-all hover:scale-105 hover:opacity-80"
+              className="flex items-center transition-all duration-300 hover:scale-105 hover:opacity-80 group"
             >
               <img 
                 src={logo} 
                 alt="The Bridge Barbershop" 
-                className="h-12 w-auto object-contain"
+                className="h-12 w-auto object-contain transition-transform duration-500 group-hover:brightness-110"
               />
             </button>
 
@@ -87,13 +87,13 @@ export default function Navigation() {
                 <button
                   key={link.name}
                   onClick={() => scrollToSection(link.href)}
-                  className={`text-sm transition-all tracking-wide relative group ${
+                  className={`text-sm transition-all duration-300 tracking-wide relative group ${
                     activeSection === link.href.slice(1) ? "text-primary" : "text-muted-foreground hover:text-primary"
                   }`}
                 >
                   {link.name}
                   <span
-                    className={`absolute -bottom-1 left-0 h-px bg-primary transition-all ${
+                    className={`absolute -bottom-1 left-0 h-px bg-primary transition-all duration-300 ${
                       activeSection === link.href.slice(1) ? "w-full" : "w-0 group-hover:w-full"
                     }`}
                   />
@@ -101,10 +101,11 @@ export default function Navigation() {
               ))}
               <Button
                 size="sm"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-all hover:scale-105"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20 relative overflow-hidden group"
                 onClick={() => scrollToSection("#booking")}
               >
-                Book Now
+                <span className="relative z-10">Book Now</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-white/10 to-primary/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
               </Button>
             </div>
 
