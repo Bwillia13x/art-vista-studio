@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
+import logo from "@/assets/bridge-logo.png";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
@@ -73,10 +74,12 @@ export default function Hero() {
           }`}
         >
           <div className="relative">
-            <div className="w-[180px] h-[180px] md:w-[240px] md:h-[240px] bg-primary/10 rounded-full flex items-center justify-center">
-              <span className="text-primary font-bold text-6xl md:text-8xl">TB</span>
-            </div>
-            <div className="absolute -inset-4 bg-primary/5 blur-3xl -z-10" />
+            <img 
+              src={logo} 
+              alt="The Bridge Barbershop" 
+              className="w-auto h-[180px] md:h-[280px] object-contain"
+            />
+            <div className="absolute -inset-8 bg-primary/5 blur-3xl -z-10" />
           </div>
         </div>
 

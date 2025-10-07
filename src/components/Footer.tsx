@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react";
+import logo from "@/assets/bridge-logo.png";
 
 export default function Footer() {
   return (
@@ -6,14 +7,12 @@ export default function Footer() {
       <div className="max-w-6xl mx-auto">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-[60px] h-[60px] bg-primary/10 rounded-full flex items-center justify-center">
-                <span className="text-primary font-bold text-2xl">TB</span>
-              </div>
-              <div>
-                <h3 className="font-serif text-2xl text-primary">The Bridge</h3>
-                <p className="text-xs text-muted-foreground">Premium Grooming</p>
-              </div>
+            <div className="mb-6">
+              <img 
+                src={logo} 
+                alt="The Bridge Barbershop" 
+                className="h-20 w-auto object-contain"
+              />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
               Calgary's premier destination for luxury grooming. Where traditional craftsmanship meets modern style in

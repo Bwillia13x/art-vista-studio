@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import logo from "@/assets/bridge-logo.png";
 
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -72,14 +73,13 @@ export default function Navigation() {
           <div className="flex items-center justify-between">
             <button
               onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-              className="flex items-center gap-3 group transition-all hover:scale-105"
+              className="flex items-center transition-all hover:scale-105 hover:opacity-80"
             >
-              <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
-                <span className="text-primary font-bold text-lg">TB</span>
-              </div>
-              <span className="font-serif text-xl text-primary group-hover:text-primary/80 transition-colors">
-                The Bridge
-              </span>
+              <img 
+                src={logo} 
+                alt="The Bridge Barbershop" 
+                className="h-12 w-auto object-contain"
+              />
             </button>
 
             <div className="hidden md:flex items-center gap-8">
