@@ -29,7 +29,11 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-28 sm:pt-32 md:pt-40 pb-24">
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black via-black/95 to-black" />
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-black to-primary/10 animate-gradient" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent opacity-50" />
+        <div className="absolute inset-0 bg-noise opacity-[0.015]" />
+      </div>
 
       <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <div
