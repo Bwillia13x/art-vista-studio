@@ -1,12 +1,4 @@
-import {
-  ClampToEdgeWrapping,
-  DataTexture,
-  FloatType,
-  MathUtils,
-  NearestFilter,
-  RGBAFormat,
-  ShaderMaterial,
-} from "three"
+import * as THREE from "three"
 import { periodicNoiseGLSL } from "./utils"
 
 const LOOP_PERIOD_DEFAULT = 24.0
@@ -36,13 +28,13 @@ function createPlaneTexture({ resolution, scale }: PlaneConfig) {
     data[i4 + 3] = 1.0
   }
 
-  const texture = new DataTexture(data, size, size, RGBAFormat, FloatType)
+  const texture = new THREE.DataTexture(data, size, size, THREE.RGBAFormat, THREE.FloatType)
   texture.needsUpdate = true
   texture.generateMipmaps = false
-  texture.magFilter = NearestFilter
-  texture.minFilter = NearestFilter
-  texture.wrapS = ClampToEdgeWrapping
-  texture.wrapT = ClampToEdgeWrapping
+  texture.magFilter = THREE.NearestFilter
+  texture.minFilter = THREE.NearestFilter
+  texture.wrapS = THREE.ClampToEdgeWrapping
+  texture.wrapT = THREE.ClampToEdgeWrapping
 
   return { texture, resolution: size }
 }
@@ -53,7 +45,7 @@ export interface SimulationMaterialOptions {
   loopPeriod?: number
 }
 
-export class SimulationMaterial extends ShaderMaterial {
+export class SimulationMaterial extends THREE.ShaderMaterial {
   readonly resolution: number
 
   constructor({
@@ -61,8 +53,8 @@ export class SimulationMaterial extends ShaderMaterial {
     scale = 10.0,
     loopPeriod = LOOP_PERIOD_DEFAULT,
   }: SimulationMaterialOptions = {}) {
-    const sanitizedResolution = MathUtils.clamp(
-      MathUtils.ceilPowerOfTwo(Math.max(MIN_RESOLUTION, Math.floor(resolution))),
+    const sanitizedResolution = THREE.MathUtils.clamp(
+      THREE.MathUtils.ceilPowerOfTwo(Math.max(MIN_RESOLUTION, Math.floor(resolution))),
       MIN_RESOLUTION,
       4096,
     )
