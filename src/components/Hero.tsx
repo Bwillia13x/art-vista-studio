@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import logo from "@/assets/bridge-logo.png";
-import { GL } from "@/components/gl";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [hovering, setHovering] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
@@ -31,18 +29,9 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-28 sm:pt-32 md:pt-40 pb-24">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/30 via-black/10 to-black/60" />
-        <div className="absolute inset-0 pointer-events-none">
-          <GL hovering={hovering} className="h-full w-full" />
-        </div>
-      </div>
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black via-black/95 to-black" />
 
-      <div
-        className="relative z-10 text-center px-6 max-w-5xl mx-auto"
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}
-      >
+      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <div
           className={`mb-12 flex justify-center transition-all duration-1000 delay-200 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
