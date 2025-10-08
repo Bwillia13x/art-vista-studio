@@ -86,6 +86,13 @@ export function Particles({
     [],
   )
 
+  const simulationGeometry = useMemo(() => {
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
+    geometry.setAttribute('uv', new THREE.BufferAttribute(uvs, 2))
+    return geometry
+  }, [positions, uvs])
+
   const particles = useMemo(() => {
     const length = resolution * resolution
     const buffer = new Float32Array(length * 3)
@@ -102,6 +109,12 @@ export function Particles({
 
     return buffer
   }, [resolution])
+
+  const particlesGeometry = useMemo(() => {
+    const geometry = new THREE.BufferGeometry()
+    geometry.setAttribute('position', new THREE.BufferAttribute(particles, 3))
+    return geometry
+  }, [particles])
 
   useEffect(() => {
     const revealState = revealStateRef.current
@@ -224,23 +237,14 @@ export function Particles({
   return (
     <>
       {createPortal(
-        <mesh material={simulationMaterial}>
-          <bufferGeometry>
-            <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-            <bufferAttribute attach="attributes-uv" args={[uvs, 2]} />
-          </bufferGeometry>
-        </mesh>,
+        <mesh material={simulationMaterial} geometry={simulationGeometry} />,
         scene,
       )}
       <points
         material={dofPointsMaterial}
+        geometry={particlesGeometry}
         frustumCulled={false}
-        {...props}
-      >
-        <bufferGeometry>
-          <bufferAttribute attach="attributes-position" args={[particles, 3]} />
-        </bufferGeometry>
-      </points>
+      />
     </>
   )
 }
