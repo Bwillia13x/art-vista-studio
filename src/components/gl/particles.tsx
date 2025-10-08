@@ -211,22 +211,44 @@ export function Particles({
     const safeTimeScale = Number.isFinite(timeScale) ? timeScale : 0
     const timeFactor = Math.max(0, safeTimeScale * safeSpeed)
 
+    const blurUniform = dofPointsMaterial.uniforms.uBlur
+    const transitionUniform = dofPointsMaterial.uniforms.uTransition
+    const noiseIntensityUniform = simulationMaterial.uniforms.uNoiseIntensity
+
     dofPointsMaterial.uniforms.uTime.value = currentTime
     dofPointsMaterial.uniforms.uFocus.value = safeFocus
-    dofPointsMaterial.uniforms.uBlur.value = safeBlur
 
-    easing.damp(
-      dofPointsMaterial.uniforms.uTransition,
-      "value",
-      introspect ? 1.0 : 0.0,
-      introspect ? 0.35 : 0.2,
-      delta,
-    )
+    const targetTransition = introspect ? 1.0 : 0.0
+
+    if (!revealState.completed || introspect) {
+      easing.damp(
+        transitionUniform,
+        "value",
+        targetTransition,
+        introspect ? 0.35 : 0.2,
+        delta,
+      )
+    } else {
+      transitionUniform.value = targetTransition
+    }
+
+    const targetBlur = introspect ? safeBlur : safeBlur * 0.7
+    easing.damp(blurUniform, "value", targetBlur, 0.3, delta)
 
     simulationMaterial.uniforms.uTime.value = currentTime
     simulationMaterial.uniforms.uNoiseScale.value = safeNoiseScale
-    simulationMaterial.uniforms.uNoiseIntensity.value = safeNoiseIntensity
     simulationMaterial.uniforms.uTimeScale.value = timeFactor
+
+    const targetNoiseIntensity = introspect
+      ? safeNoiseIntensity
+      : safeNoiseIntensity * 0.6
+    easing.damp(
+      noiseIntensityUniform,
+      "value",
+      targetNoiseIntensity,
+      introspect ? 0.28 : 0.18,
+      delta,
+    )
 
     dofPointsMaterial.uniforms.uPointSize.value = safePointSize
     dofPointsMaterial.uniforms.uOpacity.value = clampedOpacity

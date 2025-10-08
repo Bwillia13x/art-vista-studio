@@ -30,16 +30,15 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen flex items-center justify-center overflow-hidden pt-20 bg-black">
-      {/* WebGL Particle Background - Full Height */}
-      <div className="absolute inset-0 w-full h-full">
-        <GL hovering={hovering} />
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-black pt-28 sm:pt-32 md:pt-40 pb-24">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/30 via-black/10 to-black/60" />
+        <div className="absolute inset-0 pointer-events-none">
+          <GL hovering={hovering} className="h-full w-full" />
+        </div>
       </div>
 
-      {/* Subtle Gradient Overlay - No grey background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/40 pointer-events-none" />
-
-      <div 
+      <div
         className="relative z-10 text-center px-6 max-w-5xl mx-auto"
         onMouseEnter={() => setHovering(true)}
         onMouseLeave={() => setHovering(false)}
