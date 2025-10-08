@@ -4,18 +4,18 @@ import { Canvas } from "@react-three/fiber"
 import { Particles } from "./particles"
 
 const CAMERA_POSITION: [number, number, number] = [
-  1.2629783123314589,
-  2.664606471394044,
-  -1.8178993743288914,
+  0,
+  0,
+  5,
 ]
 
 export const GL = ({ hovering }: { hovering: boolean }) => {
   const camera = useMemo(
     () => ({
       position: CAMERA_POSITION,
-      fov: 50,
-      near: 0.01,
-      far: 300,
+      fov: 75,
+      near: 0.1,
+      far: 1000,
     }),
     [],
   )
@@ -26,11 +26,11 @@ export const GL = ({ hovering }: { hovering: boolean }) => {
       noiseScale: 0.6,
       noiseIntensity: 0.52,
       timeScale: 1,
-      focus: 3.8,
-      aperture: 1.79,
-      pointSize: 10.0,
-      opacity: 0.8,
-      planeScale: 10.0,
+      focus: 5.0,
+      aperture: 2.5,
+      pointSize: 8.0,
+      opacity: 0.9,
+      planeScale: 20.0,
       size: 512,
       useManualTime: false,
       manualTime: 0,
