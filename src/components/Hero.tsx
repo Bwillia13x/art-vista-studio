@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronDown } from "lucide-react";
 import logo from "@/assets/bridge-logo.png";
+import { GL } from "@/components/gl";
 
 export default function Hero() {
   const [scrollY, setScrollY] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [hovering, setHovering] = useState(false);
 
   useEffect(() => {
     setIsLoaded(true);
@@ -29,46 +31,19 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden pt-20">
+      {/* WebGL Particle Background */}
+      <div className="absolute inset-0 w-full h-full">
+        <GL hovering={hovering} />
+      </div>
 
-      <div
-        className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-background"
-        style={{ transform: `translate3d(0, ${scrollY * 0.5}px, 0)` }}
+      {/* Gradient Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background/80 pointer-events-none" />
+
+      <div 
+        className="relative z-10 text-center px-6 max-w-5xl mx-auto"
+        onMouseEnter={() => setHovering(true)}
+        onMouseLeave={() => setHovering(false)}
       >
-        <div className="absolute inset-0 opacity-5 bg-[radial-gradient(circle_at_50%_50%,_hsl(var(--primary))_0%,transparent_70%)]" />
-        <div
-          className="absolute inset-0 opacity-[0.02]"
-          style={{
-            backgroundImage: `repeating-linear-gradient(0deg, transparent, transparent 2px, hsl(var(--primary)) 2px, hsl(var(--primary)) 3px)`,
-            transform: `translate3d(0, ${scrollY * 0.3}px, 0)`,
-          }}
-        />
-      </div>
-
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div
-          className={`absolute top-0 left-0 w-px h-32 bg-gradient-to-b from-primary/40 to-transparent transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}
-        />
-        <div
-          className={`absolute top-0 right-0 w-px h-32 bg-gradient-to-b from-primary/40 to-transparent transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}
-        />
-        <div
-          className={`absolute top-0 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-primary/30 to-transparent transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}
-        />
-        <div
-          className={`absolute top-8 left-8 w-16 h-16 border-l border-t border-primary/20 transition-all duration-1000 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-75"}`}
-        />
-        <div
-          className={`absolute top-8 right-8 w-16 h-16 border-r border-t border-primary/20 transition-all duration-1000 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-75"}`}
-        />
-        <div
-          className={`absolute bottom-8 left-8 w-16 h-16 border-l border-b border-primary/20 transition-all duration-1000 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-75"}`}
-        />
-        <div
-          className={`absolute bottom-8 right-8 w-16 h-16 border-r border-b border-primary/20 transition-all duration-1000 ${isLoaded ? "opacity-100 scale-100" : "opacity-0 scale-75"}`}
-        />
-      </div>
-
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
         <div
           className={`mb-12 flex justify-center transition-all duration-1000 delay-200 ${
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
