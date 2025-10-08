@@ -1,9 +1,7 @@
 import { Suspense, useMemo } from "react"
 import { Canvas } from "@react-three/fiber"
-import { Effects } from "@react-three/drei"
 
 import { Particles } from "./particles"
-import { VignetteShader } from "./shaders/vignetteShader"
 
 const CAMERA_POSITION: [number, number, number] = [
   1.2629783123314589,
@@ -65,13 +63,6 @@ export const GL = ({ hovering }: { hovering: boolean }) => {
             introspect={hovering}
           />
         </Suspense>
-        <Effects disableGamma multisampling={0}>
-          <shaderPass
-            args={[VignetteShader]}
-            uniforms-darkness-value={1.8}
-            uniforms-offset-value={0.3}
-          />
-        </Effects>
       </Canvas>
     </div>
   )
