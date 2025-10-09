@@ -11,9 +11,13 @@ const galleryImages = [
 
 export default function Gallery() {
   const scrollRef = useRef<HTMLDivElement>(null);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isUserPaused, setIsUserPaused] = useState(false);
+  const [isHoverPaused, setIsHoverPaused] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const isPaused = isUserPaused || isHoverPaused || prefersReducedMotion;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -33,27 +37,48 @@ export default function Gallery() {
   }, []);
 
   useEffect(() => {
-    const scrollContainer = scrollRef.current;
-    if (!scrollContainer) return;
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const updateMotionPreference = () => setPrefersReducedMotion(mediaQuery.matches);
 
-    let scrollAmount = 0;
+    updateMotionPreference();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", updateMotionPreference);
+    } else {
+      mediaQuery.addListener(updateMotionPreference);
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === "function") {
+        mediaQuery.removeEventListener("change", updateMotionPreference);
+      } else {
+        mediaQuery.removeListener(updateMotionPreference);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const scrollContainer = scrollRef.current;
+    if (!scrollContainer || isPaused) return;
+
+    let scrollAmount = scrollContainer.scrollLeft;
     const scrollSpeed = 0.3;
 
     const scroll = () => {
-      if (!isPaused) {
-        scrollAmount += scrollSpeed;
-        if (scrollContainer) {
-          scrollContainer.scrollLeft = scrollAmount;
-          if (scrollAmount >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
-            scrollAmount = 0;
-          }
-        }
+      scrollAmount += scrollSpeed;
+      scrollContainer.scrollLeft = scrollAmount;
+      if (scrollAmount >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
+        scrollAmount = 0;
       }
     };
 
-    const interval = setInterval(scroll, 30);
-    return () => clearInterval(interval);
+    const interval = window.setInterval(scroll, 30);
+    return () => window.clearInterval(interval);
   }, [isPaused]);
+
+  const toggleUserPause = () => {
+    setIsUserPaused((prev) => !prev);
+  };
 
   return (
     <section ref={sectionRef} className="py-32 md:py-40 bg-background" id="gallery">
@@ -72,32 +97,54 @@ export default function Gallery() {
         </div>
       </div>
 
-      <div
-        ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scrollbar-hide px-6"
-        style={{ scrollBehavior: "smooth" }}
-        onMouseEnter={() => setIsPaused(true)}
-        onMouseLeave={() => setIsPaused(false)}
-      >
-        {[...galleryImages, ...galleryImages].map((image, index) => (
-          <div
-            key={index}
-            className={`flex-shrink-0 w-80 h-[28rem] rounded-sm relative overflow-hidden border border-primary/10 hover:border-primary/30 transition-all duration-500 group ${isVisible ? "opacity-100" : "opacity-0"}`}
-            style={{ transitionDelay: `${(index % galleryImages.length) * 100}ms` }}
+      <div className="px-6">
+        <div className="flex justify-end items-center gap-3 mb-4">
+          <button
+            type="button"
+            onClick={toggleUserPause}
+            aria-pressed={isUserPaused}
+            className="text-xs uppercase tracking-widest rounded-full border border-primary/40 px-4 py-2 text-primary transition-colors duration-300 hover:bg-primary/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+            disabled={prefersReducedMotion}
           >
-            <img 
-              src={image} 
-              alt={`The Bridge barbershop luxury interior and premium grooming services - image ${(index % galleryImages.length) + 1}`}
-              loading="lazy"
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-          </div>
-        ))}
+            {prefersReducedMotion ? "Autoplay disabled" : isUserPaused ? "Play carousel" : "Pause carousel"}
+          </button>
+          {prefersReducedMotion && (
+            <span className="text-xs text-muted-foreground">
+              Autoplay disabled to respect reduced motion settings.
+            </span>
+          )}
+        </div>
+        <div
+          ref={scrollRef}
+          className="flex gap-6 overflow-x-auto"
+          style={{ scrollBehavior: "smooth" }}
+          onPointerEnter={() => setIsHoverPaused(true)}
+          onPointerLeave={() => setIsHoverPaused(false)}
+          onFocus={() => setIsHoverPaused(true)}
+          onBlur={() => setIsHoverPaused(false)}
+        >
+          {[...galleryImages, ...galleryImages].map((image, index) => (
+            <div
+              key={index}
+              className={`flex-shrink-0 w-80 h-[28rem] rounded-sm relative overflow-hidden border border-primary/10 hover:border-primary/30 transition-all duration-500 group ${isVisible ? "opacity-100" : "opacity-0"}`}
+              style={{ transitionDelay: `${(index % galleryImages.length) * 100}ms` }}
+            >
+              <img
+                src={image}
+                alt={`The Bridge barbershop luxury interior and premium grooming services - image ${(index % galleryImages.length) + 1}`}
+                loading="lazy"
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="text-center mt-8 px-6">
-        <p className="text-xs text-muted-foreground uppercase tracking-widest">Hover to pause • Scroll to explore</p>
+        <p className="text-xs text-muted-foreground uppercase tracking-widest">
+          Use the pause control or hover to stop motion • Autoplay respects reduced-motion settings
+        </p>
       </div>
     </section>
   );
