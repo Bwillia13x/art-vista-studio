@@ -20,7 +20,7 @@ export default function Footer() {
           <div>
             <p className="text-xs uppercase tracking-[0.4em] text-primary/70">Begin your ritual</p>
             <h3 className="mt-3 text-2xl font-serif text-primary">Ready to cross the bridge?</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
+            <p className="mt-2 text-sm text-slate-100/80">
               Reserve a chair for your next cut or grooming service in under a minute.
             </p>
           </div>
@@ -48,7 +48,7 @@ export default function Footer() {
                 className="h-20 w-auto object-contain"
               />
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed max-w-md">
+            <p className="text-sm text-slate-100/80 leading-relaxed max-w-md">
               Calgary's premier destination for luxury grooming. Where traditional craftsmanship meets modern style in
               the heart of Bridgeland.
             </p>
@@ -56,7 +56,7 @@ export default function Footer() {
 
           <div>
             <h4 className="text-primary font-semibold mb-4 text-sm uppercase tracking-wider">Contact</h4>
-            <div className="space-y-3 text-sm text-muted-foreground">
+            <div className="space-y-3 text-sm text-slate-100/80">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-primary/60 mt-0.5 flex-shrink-0" />
                 <span>
@@ -80,7 +80,7 @@ export default function Footer() {
 
           <div>
             <h4 className="text-primary font-semibold mb-4 text-sm uppercase tracking-wider">Hours</h4>
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <div className="space-y-2 text-sm text-slate-100/80">
               <p>Mon - Fri: 9am - 7pm</p>
               <p>Saturday: 9am - 6pm</p>
               <p>Sunday: 10am - 5pm</p>
@@ -97,7 +97,7 @@ export default function Footer() {
         </div>
 
         <div className="pt-8 border-t border-primary/20 text-center">
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-slate-100/70">
             © {new Date().getFullYear()} The Bridge Barbershop. All rights reserved.
           </p>
         </div>

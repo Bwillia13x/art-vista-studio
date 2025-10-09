@@ -67,15 +67,15 @@ export default function Hero() {
             isLoaded ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           }`}
         >
-          <p className="text-xl md:text-2xl lg:text-3xl text-foreground/90 font-light tracking-wide">
+          <p className="text-xl md:text-2xl lg:text-3xl text-white/90 font-light tracking-wide">
             Artisan Grooming in Bridgeland
           </p>
           <div className="flex items-center justify-center gap-4">
             <div className="w-12 h-px bg-primary/50 transition-all duration-500 hover:w-16 hover:bg-primary" />
-            <span className="text-xs uppercase tracking-[0.3em] text-muted-foreground hover:text-primary transition-colors duration-300">Calgary</span>
+            <span className="text-xs uppercase tracking-[0.3em] text-slate-100/80 hover:text-primary transition-colors duration-300">Calgary</span>
             <div className="w-12 h-px bg-primary/50 transition-all duration-500 hover:w-16 hover:bg-primary" />
           </div>
-          <p className="text-base md:text-lg text-muted-foreground/90 max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-base md:text-lg text-slate-100/85 max-w-2xl mx-auto leading-relaxed font-light">
             Where craftsmanship meets luxury. Experience the art of traditional barbering elevated to new heights.
           </p>
         </div>
@@ -106,7 +106,7 @@ export default function Hero() {
       </div>
 
       <div
-        className={`absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-muted-foreground/60 transition-all duration-1000 ${
+        className={`absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-slate-100/70 transition-all duration-1000 ${
           isLoaded ? "opacity-100" : "opacity-0"
         }`}
       >
