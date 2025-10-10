@@ -7,23 +7,311 @@ export type Json =
   | Json[]
 
 export type Database = {
-  // Allows to automatically instantiate createClient with right options
-  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
     PostgrestVersion: "13.0.5"
   }
   public: {
     Tables: {
-      [_ in never]: never
+      add_ons: {
+        Row: {
+          created_at: string
+          description: string
+          duration_minutes: number
+          id: string
+          name: string
+          price_cents: number
+          recommended_for: string[]
+        }
+        Insert: {
+          created_at?: string
+          description: string
+          duration_minutes: number
+          id: string
+          name: string
+          price_cents: number
+          recommended_for?: string[]
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          duration_minutes?: number
+          id?: string
+          name?: string
+          price_cents?: number
+          recommended_for?: string[]
+        }
+        Relationships: []
+      }
+      booking_add_ons: {
+        Row: {
+          add_on_id: string
+          booking_id: string
+          id: number
+        }
+        Insert: {
+          add_on_id: string
+          booking_id: string
+          id?: number
+        }
+        Update: {
+          add_on_id?: string
+          booking_id?: string
+          id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "booking_add_ons_add_on_id_fkey"
+            columns: ["add_on_id"]
+            referencedRelation: "add_ons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "booking_add_ons_booking_id_fkey"
+            columns: ["booking_id"]
+            referencedRelation: "bookings"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      bookings: {
+        Row: {
+          appointment_date: string
+          client_email: string
+          client_name: string
+          client_phone: string
+          created_at: string
+          duration_minutes: number
+          id: string
+          marketing_consent: boolean
+          notes: string | null
+          service_id: string
+          start_time: string
+          stylist_id: string
+          updated_at: string
+        }
+        Insert: {
+          appointment_date: string
+          client_email: string
+          client_name: string
+          client_phone: string
+          created_at?: string
+          duration_minutes: number
+          id?: string
+          marketing_consent?: boolean
+          notes?: string | null
+          service_id: string
+          start_time: string
+          stylist_id: string
+          updated_at?: string
+        }
+        Update: {
+          appointment_date?: string
+          client_email?: string
+          client_name?: string
+          client_phone?: string
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          marketing_consent?: boolean
+          notes?: string | null
+          service_id?: string
+          start_time?: string
+          stylist_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "bookings_service_id_fkey"
+            columns: ["service_id"]
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "bookings_stylist_id_fkey"
+            columns: ["stylist_id"]
+            referencedRelation: "stylists"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      services: {
+        Row: {
+          category: Database["public"]["Enums"]["service_category"]
+          created_at: string
+          description: string
+          duration_minutes: number
+          id: string
+          includes: string[]
+          name: string
+          price_cents: number
+        }
+        Insert: {
+          category: Database["public"]["Enums"]["service_category"]
+          created_at?: string
+          description: string
+          duration_minutes: number
+          id: string
+          includes?: string[]
+          name: string
+          price_cents: number
+        }
+        Update: {
+          category?: Database["public"]["Enums"]["service_category"]
+          created_at?: string
+          description?: string
+          duration_minutes?: number
+          id?: string
+          includes?: string[]
+          name?: string
+          price_cents?: number
+        }
+        Relationships: []
+      }
+      stylist_schedule_breaks: {
+        Row: {
+          break_end: string
+          break_start: string
+          id: number
+          schedule_id: number
+        }
+        Insert: {
+          break_end: string
+          break_start: string
+          id?: number
+          schedule_id: number
+        }
+        Update: {
+          break_end?: string
+          break_start?: string
+          id?: number
+          schedule_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stylist_schedule_breaks_schedule_id_fkey"
+            columns: ["schedule_id"]
+            referencedRelation: "stylist_schedules"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      stylist_schedules: {
+        Row: {
+          block_end: string
+          block_start: string
+          day_of_week: number
+          id: number
+          stylist_id: string
+        }
+        Insert: {
+          block_end: string
+          block_start: string
+          day_of_week: number
+          id?: number
+          stylist_id: string
+        }
+        Update: {
+          block_end?: string
+          block_start?: string
+          day_of_week?: number
+          id?: number
+          stylist_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stylist_schedules_stylist_id_fkey"
+            columns: ["stylist_id"]
+            referencedRelation: "stylists"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      stylist_specialties: {
+        Row: {
+          id: number
+          service_id: string
+          stylist_id: string
+        }
+        Insert: {
+          id?: number
+          service_id: string
+          stylist_id: string
+        }
+        Update: {
+          id?: number
+          service_id?: string
+          stylist_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "stylist_specialties_service_id_fkey"
+            columns: ["service_id"]
+            referencedRelation: "services"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "stylist_specialties_stylist_id_fkey"
+            columns: ["stylist_id"]
+            referencedRelation: "stylists"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
+      stylists: {
+        Row: {
+          bio: string
+          created_at: string
+          id: string
+          name: string
+          rating: number
+          title: string
+          years_experience: number
+        }
+        Insert: {
+          bio: string
+          created_at?: string
+          id: string
+          name: string
+          rating: number
+          title: string
+          years_experience: number
+        }
+        Update: {
+          bio?: string
+          created_at?: string
+          id?: string
+          name?: string
+          rating?: number
+          title?: string
+          years_experience?: number
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      create_booking: {
+        Args: {
+          p_service_id: string
+          p_stylist_id: string
+          p_appointment_date: string
+          p_start_time: string
+          p_duration_minutes: number
+          p_client_name: string
+          p_client_email: string
+          p_client_phone: string
+          p_notes: string | null
+          p_marketing_consent: boolean
+          p_add_on_ids: string[] | null
+        }
+        Returns: Database["public"]["Tables"]["bookings"]["Row"]
+      }
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      service_category: "cut" | "shave" | "color" | "package"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -31,33 +319,21 @@ export type Database = {
   }
 }
 
-type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
-
-type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
-
 export type Tables<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
-      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Row: infer R
     }
     ? R
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])
-    ? (DefaultSchema["Tables"] &
-        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
         Row: infer R
       }
       ? R
@@ -65,24 +341,20 @@ export type Tables<
     : never
 
 export type TablesInsert<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Insert: infer I
     }
     ? I
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
         Insert: infer I
       }
       ? I
@@ -90,24 +362,20 @@ export type TablesInsert<
     : never
 
 export type TablesUpdate<
-  DefaultSchemaTableNameOrOptions extends
-    | keyof DefaultSchema["Tables"]
-    | { schema: keyof DatabaseWithoutInternals },
-  TableName extends DefaultSchemaTableNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
+  TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
     : never = never,
-> = DefaultSchemaTableNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+> = PublicTableNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
       Update: infer U
     }
     ? U
     : never
-  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
-    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+  : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
+    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
         Update: infer U
       }
       ? U
@@ -115,41 +383,35 @@ export type TablesUpdate<
     : never
 
 export type Enums<
-  DefaultSchemaEnumNameOrOptions extends
-    | keyof DefaultSchema["Enums"]
-    | { schema: keyof DatabaseWithoutInternals },
-  EnumName extends DefaultSchemaEnumNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+  PublicEnumNameOrOptions extends
+    | keyof Database["public"]["Enums"]
+    | { schema: keyof Database },
+  EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
     : never = never,
-> = DefaultSchemaEnumNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
-  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
-    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+> = PublicEnumNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
+    ? Database["public"]["Enums"][PublicEnumNameOrOptions]
     : never
 
 export type CompositeTypes<
   PublicCompositeTypeNameOrOptions extends
-    | keyof DefaultSchema["CompositeTypes"]
-    | { schema: keyof DatabaseWithoutInternals },
-  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
-    schema: keyof DatabaseWithoutInternals
-  }
-    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    | keyof Database["public"]["CompositeTypes"]
+    | { schema: keyof Database },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+    ? keyof Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
     : never = never,
-> = PublicCompositeTypeNameOrOptions extends {
-  schema: keyof DatabaseWithoutInternals
-}
-  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
-  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
-    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+> = PublicCompositeTypeNameOrOptions extends { schema: keyof Database }
+  ? Database[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof Database["public"]["CompositeTypes"]
+    ? Database["public"]["CompositeTypes"][PublicCompositeTypeNameOrOptions]
     : never
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      service_category: ["cut", "shave", "color", "package"] as const,
+    },
   },
 } as const
