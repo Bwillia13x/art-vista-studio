@@ -18,9 +18,6 @@ export default function Hero() {
     "/videos/barbershop-orbit.mp4"
   ];
 
-  // Placeholder image for initial paint
-  const placeholderImage = "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=1920&q=80&auto=format&fit=crop";
-
   useEffect(() => {
     setIsLoaded(true);
     const handleScroll = () => setScrollY(window.scrollY);
@@ -51,11 +48,13 @@ export default function Hero() {
   };
 
   useEffect(() => {
-    // Only preload the first video for faster initial load
+    // Start playing the first video immediately
     const firstVideo = videoRefs.current[0];
     if (firstVideo) {
       firstVideo.preload = 'auto';
       firstVideo.load();
+      // Set loaded state immediately so no placeholder shows
+      setVideoLoadingStates({ 0: 'loaded' });
       firstVideo.play().catch(err => console.log("Initial video play error:", err));
     }
 
@@ -146,18 +145,7 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background pt-4 sm:pt-6 md:pt-8 pb-24" aria-label="Hero section">
-      {/* Placeholder background image for initial paint */}
-      <div
-        className="absolute inset-0 z-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${placeholderImage})`,
-          opacity: videoLoadingStates[currentVideoIndex] === 'loaded' ? 0 : 0.3,
-          transition: 'opacity 0.5s ease-out'
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Video background */}
+      {/* Video background - starts immediately, no placeholder */}
       <div className="absolute inset-0 z-0" aria-hidden="true">
         {videos.map((video, index) => {
           const isActive = index === currentVideoIndex;

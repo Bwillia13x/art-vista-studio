@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { BottomSheet } from "@/components/ui/bottom-sheet";
 import { Menu, X } from "lucide-react";
 import ThemeToggle from "@/components/ThemeToggle";
+import logo from "@/assets/bridge-logo.png";
 
 function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -123,6 +124,20 @@ function Navigation() {
       >
         <div className="max-w-7xl mx-auto px-6 py-3.5">
           <div className="flex items-center justify-between gap-4">
+            {/* Logo - Always visible */}
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-lg"
+              aria-label="Scroll to top"
+            >
+              <img 
+                src={logo} 
+                alt="The Bridge Barbershop" 
+                className="h-10 w-auto md:h-12"
+              />
+            </button>
+
+            {/* Desktop Navigation Links */}
             <div className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => (
                 <button
