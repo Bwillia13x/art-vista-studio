@@ -1,0 +1,7 @@
+project_id = "ivfbjaxlrjnakgzumrpd"
+
+[functions]
+enabled = true
+
+[functions.ai-concierge]
+verify_jwt = false

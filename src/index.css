@@ -1,0 +1,363 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Light mode - premium off-white with warm undertones */
+    --background: 44 30% 98%;
+    --foreground: 0 0% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 12%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 12%;
+    --primary: 42 75% 58%;
+    --primary-glow: 42 85% 68%;
+    --primary-foreground: 0 0% 10%;
+    --secondary: 44 25% 95%;
+    --secondary-foreground: 0 0% 12%;
+    --muted: 44 20% 93%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 180 45% 55%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98.5%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 42 75% 58%;
+    --radius: 0.5rem;
+
+    /* Light mode gradients */
+    --gradient-premium: linear-gradient(135deg, hsl(42 75% 58% / 0.08) 0%, hsl(44 30% 98%) 50%, hsl(42 75% 58% / 0.12) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(42 85% 68%) 0%, hsl(42 75% 58%) 50%, hsl(42 65% 48%) 100%);
+    --gradient-radial: radial-gradient(ellipse at center, hsl(42 75% 58% / 0.15) 0%, transparent 70%);
+
+    /* Light mode shadows */
+    --shadow-premium: 0 25px 50px -12px hsl(42 75% 58% / 0.2);
+    --shadow-glow: 0 0 40px hsl(42 85% 68% / 0.3);
+    --shadow-subtle: 0 10px 30px -10px hsl(0 0% 0% / 0.1);
+    --shadow-elevation-1: 0 2px 8px hsl(0 0% 0% / 0.06);
+    --shadow-elevation-2: 0 8px 24px hsl(0 0% 0% / 0.1);
+    --shadow-elevation-3: 0 16px 48px hsl(0 0% 0% / 0.14);
+
+    /* Easing curves - Apple-style */
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+  }
+
+  .dark {
+    /* Dark mode - warm dark gray instead of pure black */
+    --background: 0 0% 8%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 12%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 42 75% 58%;
+    --primary-glow: 42 85% 68%;
+    --primary-foreground: 0 0% 10%;
+    --secondary: 0 0% 18%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 18%;
+    --muted-foreground: 0 0% 70%;
+    --accent: 180 45% 55%;
+    --accent-foreground: 0 0% 10%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 42 75% 58%;
+
+    /* Dark mode gradients */
+    --gradient-premium: linear-gradient(135deg, hsl(42 75% 58% / 0.15) 0%, hsl(0 0% 8%) 50%, hsl(42 75% 58% / 0.25) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(42 85% 68%) 0%, hsl(42 75% 58%) 50%, hsl(42 65% 48%) 100%);
+    --gradient-radial: radial-gradient(ellipse at center, hsl(42 75% 58% / 0.3) 0%, transparent 70%);
+
+    /* Dark mode shadows */
+    --shadow-premium: 0 25px 50px -12px hsl(42 75% 58% / 0.25);
+    --shadow-glow: 0 0 60px hsl(42 85% 68% / 0.4);
+    --shadow-subtle: 0 10px 30px -10px hsl(0 0% 0% / 0.3);
+    --shadow-elevation-1: 0 2px 8px hsl(0 0% 0% / 0.08);
+    --shadow-elevation-2: 0 8px 24px hsl(0 0% 0% / 0.12);
+    --shadow-elevation-3: 0 16px 48px hsl(0 0% 0% / 0.16);
+
+    /* Easing curves - Apple-style */
+    --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-sharp: cubic-bezier(0.4, 0, 0.6, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    letter-spacing: -0.01em;
+    /* Optical refinement */
+  }
+
+  /* Premium cursor interactions */
+  button,
+  a {
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Glass morphism utility */
+  .glass {
+    background: hsl(var(--background) / 0.8);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+
+  *:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Mobile-optimized touch targets */
+  @media (max-width: 768px) {
+
+    button,
+    a,
+    input,
+    select,
+    textarea {
+      min-height: 44px;
+      min-width: 44px;
+    }
+
+    /* Touch-friendly spacing */
+    .touch-target {
+      @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+    }
+
+    /* Prevent text selection on tap (iOS Safari) */
+    button {
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      user-select: none;
+    }
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes glow-pulse {
+
+  0%,
+  100% {
+    opacity: 0.5;
+    filter: blur(80px);
+  }
+
+  50% {
+    opacity: 1;
+    filter: blur(120px);
+  }
+}
+
+@keyframes gradient {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Premium spring animation */
+@keyframes spring-up {
+  0% {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+
+  60% {
+    transform: translateY(-5px) scale(1.01);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes magnetic-hover {
+  0% {
+    transform: translateY(0);
+  }
+
+  100% {
+    transform: translateY(-2px);
+  }
+}
+
+/* Parallax scroll */
+@keyframes parallax-slow {
+  to {
+    transform: translateY(20px);
+  }
+}
+
+/* Refined fade with blur */
+@keyframes fade-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+  }
+}
+
+/* Smooth reveal */
+@keyframes reveal {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+/* Elastic bounce */
+@keyframes elastic-bounce {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+  }
+
+  70% {
+    transform: scale(0.98);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Shimmer loading effect */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
